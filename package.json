@@ -1,11 +1,12 @@
 {
   "name": "wave-function-collapse",
   "version": "0.0.0",
-  "description": "https://www.youtube.com/playlist?list=PLcRSafycjWFeKAS40OdIvhL7j-vsgE3eg ",
+  "description": "A novel application of the famous wave function collapse",
   "main": "program.js",
   "scripts": {
-    "test": "\"mocha test.js\" "
+    "test": "mocha \"test/*test.js\""
   },
+  "repository": "https://github.com/brendanhorne/wave-function-collapse",
   "author": "Brendan Horne Andrew Aaron",
   "license": "SEE LICENSE IN readme.md",
   "dependencies": {},
