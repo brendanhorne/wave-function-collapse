@@ -1,0 +1,23 @@
+version: 2
+jobs:
+   build:
+     docker:
+       - image: circleci/node:latest
+     steps:
+       - checkout
+       - run: npm install
+       - run: npm test
+       - run: npm run customTest
+       - run: echo "TESTS PASSING"
+       - run: node .circleci/deploy.js
+       - run: echo "WE'RE ONLINE"
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - circleci-project-setup
