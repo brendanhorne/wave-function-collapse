@@ -41,13 +41,6 @@ class Tile {
     }
 }
 
-for (var i = 0; i < input.length; i++) {
-    var left_index = wrap(i - 1);
-    var right_index = wrap(i + 1);
-
-    t[i] = new Tile(i, input[i], left_index, right_index);
-}
-
 var init_pick = Math.floor(Math.random() * t.length);
 output[0] = t[init_pick];                                       // Even if we started from the middle of an array the output would be the same!
 
