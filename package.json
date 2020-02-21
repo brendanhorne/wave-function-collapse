@@ -6,7 +6,10 @@
   "scripts": {
     "test": "mocha \"test/*test.js\""
   },
-  "repository": "https://github.com/brendanhorne/wave-function-collapse",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brendanhorne/wave-function-collapse.git"
+  },
   "author": "Brendan Horne Andrew Aaron",
   "license": "SEE LICENSE IN readme.md",
   "dependencies": {},
@@ -14,5 +17,12 @@
     "ftp-deploy": "^2.3.6",
     "link-module-alias": "^1.2.0",
     "mocha": "^7.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/brendanhorne/wave-function-collapse/issues"
+  },
+  "homepage": "https://github.com/brendanhorne/wave-function-collapse#readme",
+  "directories": {
+    "test": "test"
   }
 }
