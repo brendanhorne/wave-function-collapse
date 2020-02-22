@@ -2,21 +2,17 @@
 
 var colors = require('colors');                 // npm install colors
 var fn = require(__dirname + '/functions.js').functions;
-
-console.log(fn);
-console.log(fn.wrap(10));
-console.log(fn.tileAlreadyExists);
-
 var input = [                                   // Define the input/source array.
-    [0, 1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 1, 2, 0],
+    [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0],
 ];
 
-var t = [];                                     // An Array for our tile definitions.
+
+var tiles = [];                                     // An Array for our tile definitions.
 var x_length = input.length;
 var y_length = input[0].length;
 var output = [];                                // Define the output/target array.
@@ -31,52 +27,64 @@ for (var x = 0; x < x_length; x++) {
 
 class Tile {                                    // The Tile class.
     constructor(pos, value) {
+        this.x = pos.x;
+        this.y = pos.y;
         this.v = value;
-        this.neighbour = [];        // 0 is North, 1 is East, 2 is South, 3 is West
-        this.neighbour[3] = {
-            "x": pos.x,
-            "y": fn.wrap(pos.y - 1, input),
-            "v": input[pos.x][fn.wrap(pos.y - 1, input)]
-        };
-        this.neighbour[2] = {
-            "x": fn.wrap(pos.x + 1),
-            "y": pos.y,
-            "v": input[fn.wrap(pos.x + 1, input)][pos.y]
-        };
-        this.neighbour[1] = {
-            "x": pos.x,
-            "y": fn.wrap(pos.y + 1),
-            "v": input[pos.x][fn.wrap(pos.y + 1, input)]
-        };
-        this.neighbour[0] = {
-            "x": fn.wrap(pos.x - 1),
-            "y": pos.y,
-            "v": input[fn.wrap(pos.x - 1, input)][pos.y]
-        };
+        this.neighbour = [];        
+        this.up = fn.wrap(input, pos.y + 1);
+        this.right = fn.wrap(input, pos.x + 1);
+        this.down = fn.wrap(input, pos.y - 1);
+        this.left = fn.wrap(input, pos.x - 1);
+
+        this.neighbour[0] = [input[pos.x][this.up]];
+        this.neighbour[1] = [input[this.right][this.up]];
+        this.neighbour[2] = [input[this.right][pos.y]];
+        this.neighbour[3] = [input[this.right][this.down]];
+        this.neighbour[4] = [input[pos.x][this.down]];
+        this.neighbour[5] = [input[this.left][this.down]];
+        this.neighbour[6] = [input[this.left][pos.y]];
+        this.neighbour[7] = [input[this.left][this.up]];
     }
 
-    // getNeighbour(pos) {
-    //     return new Tile(pos, input[pos.x][pos.y]);
-    // }
-}
+    pushNeighbours(x, y) {
+        var up = fn.wrap(input, y + 1);
+        var right = fn.wrap(input, x + 1);
+        var down = fn.wrap(input, y - 1);
+        var left = fn.wrap(input, x - 1);
 
-for (var y = 0; y < y_length; y++) {            // x, y is for searching the input. 
-    for (var x = 0; x < x_length; x++) {
-        var val = input[y][x];
-        console.log(val);
-
-        // if (fn.tileAlreadyExists(val)) {
-
-        // } else {
-        //     t.push(new Tile({ "x": y, "y": x }, input[y][x]));
-        // }
+        this.neighbour[0].push(input[x][up]);
+        this.neighbour[1].push(input[right][up]);
+        this.neighbour[2].push(input[right][y]);
+        this.neighbour[3].push(input[right][down]);
+        this.neighbour[4].push(input[x][down]);
+        this.neighbour[5].push(input[left][down]);
+        this.neighbour[6].push(input[left][y]);
+        this.neighbour[7].push(input[left][up]);
     }
 }
 
+var counter = 0;
 
-// for (var i = 0; i < t.length; i++) {
-//     console.log(t[i]);
-// }
+for (var x = 0; x < x_length; x++) {
+    for (var y = 0; y < y_length; y++) {            // x, y is for searching the input. 
+        var val = input[x][y];
+
+        if (tiles.length > 0 && fn.tileAlreadyExists(tiles, val)) {
+            for (var t in tiles) {
+                if (val == tiles[t].v) {
+                    tiles[t].pushNeighbours(x, y);
+                }
+            }
+        } else {
+            tiles.push(new Tile({ "x": x, "y": y }, input[x][y]));
+        }
+    }
+}
+
+for (var t = 0; t < tiles.length; t++) {
+    console.log("T: " + tiles[t].v)
+    console.log(tiles[t]);
+}
 
 // console.table(t);
 

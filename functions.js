@@ -12,17 +12,13 @@ var functions = {
             return index;
         }
     },
-    tileAlreadyExists: function (val) {
-        if (t.length > 0) {
-            for (v in t) {
-                if (t.v == val) {
-                    return true;
-                }
+    tileAlreadyExists: function (tiles, val) {
+        for (var i in tiles) {
+            if (tiles[i].v == val) {
+                return true;
             }
-            return false;
-        } else {
-            return false;
         }
+        return false;
     }
 }
 
