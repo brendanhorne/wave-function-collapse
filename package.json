@@ -12,7 +12,9 @@
   },
   "author": "Brendan Horne Andrew Aaron",
   "license": "SEE LICENSE IN readme.md",
-  "dependencies": {},
+  "dependencies": {
+    "colors": "^1.4.0"
+  },
   "devDependencies": {
     "ftp-deploy": "^2.3.6",
     "link-module-alias": "^1.2.0",
