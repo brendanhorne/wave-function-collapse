@@ -1,8 +1,10 @@
 // A Two-Dimensional Implementation of Wave Function Collapse.
 
 var colors = require('colors');                 // npm install colors
-var fn = require('./functions.js').functions;
+var fn = require(__dirname + '/functions.js').functions;
 
+console.log(fn);
+console.log(fn.wrap(10));
 console.log(fn.tileAlreadyExists);
 
 var input = [                                   // Define the input/source array.
@@ -33,23 +35,23 @@ class Tile {                                    // The Tile class.
         this.neighbour = [];        // 0 is North, 1 is East, 2 is South, 3 is West
         this.neighbour[3] = {
             "x": pos.x,
-            "y": fn.wrap(pos.y - 1),
-            "v": input[pos.x][fn.wrap(pos.y - 1)]
+            "y": fn.wrap(pos.y - 1, input),
+            "v": input[pos.x][fn.wrap(pos.y - 1, input)]
         };
         this.neighbour[2] = {
             "x": fn.wrap(pos.x + 1),
             "y": pos.y,
-            "v": input[fn.wrap(pos.x + 1)][pos.y]
+            "v": input[fn.wrap(pos.x + 1, input)][pos.y]
         };
         this.neighbour[1] = {
             "x": pos.x,
             "y": fn.wrap(pos.y + 1),
-            "v": input[pos.x][fn.wrap(pos.y + 1)]
+            "v": input[pos.x][fn.wrap(pos.y + 1, input)]
         };
         this.neighbour[0] = {
             "x": fn.wrap(pos.x - 1),
             "y": pos.y,
-            "v": input[fn.wrap(pos.x - 1)][pos.y]
+            "v": input[fn.wrap(pos.x - 1, input)][pos.y]
         };
     }
 

@@ -1,5 +1,5 @@
 var functions = {
-    wrap: function (index) {                          // Function to wrap array indices to the opposite side if they go out of bounds.
+    wrap: function (input, index) {                          // Function to wrap array indices to the opposite side if they go out of bounds.
         if (index >= input.length) {
             index = parseInt(index - input.length);
             return index;
@@ -25,3 +25,5 @@ var functions = {
         }
     }
 }
+
+module.exports.functions = functions;   
