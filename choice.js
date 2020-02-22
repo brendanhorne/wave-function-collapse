@@ -29,6 +29,7 @@ for (var i = 0; i < 1; i++) {
     // console.log(selection + " : " + choice + "   " + choice.toString().length);
     accum.push({selection, choice, precision: choice.toString().length});
 }
+
 console.table(accum);
 
 
