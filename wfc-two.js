@@ -1,7 +1,8 @@
 // A Two-Dimensional Implementation of Wave Function Collapse.
 
-var log_tiles = 1;
+var log_tiles = 0;
 var log_output = 0;
+var log_all = 1;
 
 var colors = require('colors');                 // npm install colors
 var fn = require(__dirname + '/functions.js').functions;
@@ -14,13 +15,13 @@ var input = [                                   // Define the input/source array
     [0, 0, 0, 0, 0, 0],
 ];
 
-
 var tiles = [];                                 // An Array for our tile definitions.
 var x_length = input.length;
 var y_length = input[0].length;
 var output = [];                                // Define the output/target array.
 var x_out_length = 20;
 var y_out_length = 20;
+
 for (var x = 0; x < x_out_length; x++) {
     output[x] = [];
 
@@ -115,17 +116,13 @@ for (var x = 0; x < x_length; x++) {
     }                                                                   // least create one unique case before proceeding. 
 }
 
-// for (var t = 0; t < tiles.length; t++) {
-//     console.log(tiles[t]);
-// }
-
-if (log_tiles) {
+if (log_tiles || log_all) {
     for (var t = 0; t < tiles.length; t++) {
         console.log(tiles[t]);
     }
 }
 
-if (log_output) {
+if (log_output || log_all) {
     for (var x = 0; x < 20; x++) {
         var line = '';
 
@@ -138,34 +135,3 @@ if (log_output) {
         console.log(line);
     }
 }
-
-// console.log(t.length);
-
-// for (var x = 0; x < x_length; x++) {
-//     var line1 = '';
-//     var line2 = '';
-//     var line3 = '';
-
-//     for (var y = 0; y < y_length; y++) {
-//         line1 = line1.concat('  ' + t[x][y].neighbour[0].v + '    ');
-//         line2 = line2.concat(t[x][y].neighbour[3].v + '-' + t[x][y].v + '-' + t[x][y].neighbour[1].v + '  ');
-//         line3 = line3.concat('  ' + t[x][y].neighbour[2].v + '    ');
-//     }
-//     console.log("TISET    " + line1);
-//     console.log("TISET    " + line2);
-//     console.log("TISET    " + line3);
-// }
-
-// var init_x = Math.floor(Math.random() * x_length);
-// var init_y = Math.floor(Math.random() * y_length);
-// output[0][0] = new Tile({ x: init_x, y: init_y }, input[init_x][init_y]);
-
-// console.log(output[0][0]);
-
-// for (var x = 0; x < x_length; x++) {
-//     for (var y = 0; y < y_length; y++) {
-//         var tile = output[x][y].getNeighbour();
-//         output[i + 1] = tile;
-//     }
-// }
-
