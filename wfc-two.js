@@ -1,5 +1,8 @@
 // A Two-Dimensional Implementation of Wave Function Collapse.
 
+var log_tiles = 1;
+var log_output = 0;
+
 var colors = require('colors');                 // npm install colors
 var fn = require(__dirname + '/functions.js').functions;
 var input = [                                   // Define the input/source array.
@@ -45,8 +48,10 @@ class Tile {                                    // The Tile class.
             input[pos.x][this.down],
             input[this.left][this.down],
             input[this.left][pos.y],
-            input[this.left][this.up]
+            input[this.left][this.up],
         ];
+        this.weight = [];
+        this.weight[0] = 1;                      // The tally for this particular neighbour set is 1 on initialization.
     }
 
     pushNeighbours(x, y) {
@@ -54,8 +59,7 @@ class Tile {                                    // The Tile class.
         var right = fn.wrap(input, x + 1);
         var down = fn.wrap(input, y - 1);
         var left = fn.wrap(input, x - 1);
-
-        this.neighbour.push([
+        var current_neighbour = [
             input[x][up],
             input[right][up],
             input[right][y],
@@ -64,12 +68,39 @@ class Tile {                                    // The Tile class.
             input[left][down],
             input[left][y],
             input[left][up]
-        ]);
+        ];
+
+        var found = false;
+
+        for (var n = 0; n < this.neighbour.length; n++) {
+            found = this.isEquivalent(this.neighbour[n], current_neighbour, this.v);            // There should be a way to use some() or every() but I'm too noob. 
+
+            if (found) {
+                this.weight[n] += 1;
+                break;
+            }
+        }
+
+        if (!found) {
+            this.neighbour.push(current_neighbour);
+            this.weight.push(1);
+        }
+    }
+
+    isEquivalent(neighbour, test_case, v) {
+        var counter = 0;
+
+        for (var n = 0; n < neighbour.length; n++) {
+            if (neighbour[n] == test_case[n]) counter++;
+        }
+
+        if (counter == 8) return true;
+        else return false;
     }
 }
 
 for (var x = 0; x < x_length; x++) {
-    for (var y = 0; y < y_length; y++) {            // x, y is for searching the input. 
+    for (var y = 0; y < y_length; y++) {                                // x, y is for searching the input. 
         var val = input[x][y];
 
         if (tiles.length > 0 && fn.tileAlreadyExists(tiles, val)) {     // If the tile already exists, find it in the tiles array and
@@ -88,16 +119,24 @@ for (var x = 0; x < x_length; x++) {
 //     console.log(tiles[t]);
 // }
 
-for (var x = 0; x < 20; x++) {
-    var line = '';
-
-    for (var y = 0; y < 20; y++) {
-        var choice = Math.floor(Math.random() * tiles.length)
-
-        output[x][y] = tiles[choice];
-        line = line.concat("  " + output[x][y].v);
+if (log_tiles) {
+    for (var t = 0; t < tiles.length; t++) {
+        console.log(tiles[t]);
     }
-    console.log(line);
+}
+
+if (log_output) {
+    for (var x = 0; x < 20; x++) {
+        var line = '';
+
+        for (var y = 0; y < 20; y++) {
+            var choice = Math.floor(Math.random() * tiles.length)
+
+            output[x][y] = tiles[choice];
+            line = line.concat("  " + output[x][y].v);
+        }
+        console.log(line);
+    }
 }
 
 // console.log(t.length);
