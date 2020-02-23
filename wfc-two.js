@@ -1,6 +1,7 @@
 // A Two-Dimensional Implementation of Wave Function Collapse.
 
-var log_tiles = 1;
+var log_values = 1;
+var log_neighbours = 1;
 var log_output = 0;
 var log_all = 0;
 
@@ -88,6 +89,9 @@ class Tile {                                                // The Tile class.
             }
             this.neighbour.push(new_neighbour);
         }
+
+        this.sortNeighbour();
+        this.neighbour.reverse();
     }
 
     isEquivalent(neighbour, test_case, v) {                                                     // Match all the array elements of the current neighbour set with 
@@ -99,6 +103,19 @@ class Tile {                                                // The Tile class.
 
         if (counter == 8) return true;
         else return false;
+    }
+
+    sortNeighbour() {
+        for (var i = 1; i < this.neighbour.length; i++) {
+            var j = i - 1;
+            var temp = this.neighbour[i];
+
+            while (j >= 0 && this.neighbour[j].weight > temp.weight) {
+                this.neighbour[j + 1] = this.neighbour[j];
+                j--;
+            }
+            this.neighbour[j + 1] = temp;
+        }
     }
 }
 
@@ -118,8 +135,15 @@ for (var x = 0; x < x_length; x++) {
     }                                                                   // least create one unique case before proceeding. 
 }
 
-if (log_tiles || log_all) {
+if (log_values || log_all) {
     console.log("____TILES________________________________________________________________________________")
+    for (var t = 0; t < tiles.length; t++) {
+        console.log(tiles[t].v);
+    }
+}
+
+if (log_neighbours || log_all) {
+    console.log("____NEIGHBOURS___________________________________________________________________________")
     for (var t = 0; t < tiles.length; t++) {
         console.log(tiles[t].neighbour);
     }
