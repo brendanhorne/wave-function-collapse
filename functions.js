@@ -1,11 +1,14 @@
 var functions = {
-    wrap: function (input, index) {                          // Function to wrap array indices to the opposite side if they go out of bounds.
-        if (index >= input.length) {
-            index = parseInt(index - input.length);
+    wrap: function (side_length, index) {                          // Function to wrap array indices to the opposite side if they go out of bounds.
+        if (index >= side_length) {
+            index = parseInt(index % side_length);
             return index;
 
         } else if (index < 0) {
-            index = parseInt(index + input.length);
+            index = Math.abs(index);
+            index = parseInt(index % side_length);
+            index = parseInt(side_length - index);
+            index = parseInt(index % side_length);
             return index;
 
         } else {
