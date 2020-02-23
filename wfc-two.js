@@ -37,10 +37,10 @@ class Tile {                                                // The Tile class.
         this.y = pos.y;
         this.v = value;
         this.neighbour = [];
-        this.up = fn.wrap(y_length, pos.y + 1);
-        this.right = fn.wrap(x_length, pos.x + 1);
-        this.down = fn.wrap(y_length, pos.y - 1);
-        this.left = fn.wrap(x_length, pos.x - 1);
+        this.up = fn.wrap(input, pos.y + 1);
+        this.right = fn.wrap(input, pos.x + 1);
+        this.down = fn.wrap(input, pos.y - 1);
+        this.left = fn.wrap(input, pos.x - 1);
 
         this.neighbour[0] = {                               // Array of neighbour objects / sets.
             "n": [input[pos.x][this.up],
@@ -56,10 +56,10 @@ class Tile {                                                // The Tile class.
     }
 
     pushNeighbours(x, y) {
-        var up = fn.wrap(y_length, y + 1);
-        var right = fn.wrap(x_length, x + 1);
-        var down = fn.wrap(y_length, y - 1);
-        var left = fn.wrap(x_length, x - 1);
+        var up = fn.wrap(input, y + 1);
+        var right = fn.wrap(input, x + 1);
+        var down = fn.wrap(input, y - 1);
+        var left = fn.wrap(input, x - 1);
         var current_neighbour = [                           // Use where we are looking at (x, y) to derive the current neighbour set from the input.
             input[x][up],
             input[right][up],
