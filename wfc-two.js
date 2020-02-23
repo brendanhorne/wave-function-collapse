@@ -91,7 +91,6 @@ class Tile {                                                // The Tile class.
         }
 
         this.sortNeighbour();
-        this.neighbour.reverse();
     }
 
     isEquivalent(neighbour, test_case, v) {                                                     // Match all the array elements of the current neighbour set with 
@@ -110,7 +109,7 @@ class Tile {                                                // The Tile class.
             var j = i - 1;
             var temp = this.neighbour[i];
 
-            while (j >= 0 && this.neighbour[j].weight > temp.weight) {
+            while (j >= 0 && this.neighbour[j].weight < temp.weight) {
                 this.neighbour[j + 1] = this.neighbour[j];
                 j--;
             }
@@ -136,7 +135,7 @@ for (var x = 0; x < x_length; x++) {
 }
 
 if (log_values || log_all) {
-    console.log("____TILES________________________________________________________________________________")
+    console.log("____TILES_VALUES_________________________________________________________________________")
     for (var t = 0; t < tiles.length; t++) {
         console.log(tiles[t].v);
     }
